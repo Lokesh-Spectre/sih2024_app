@@ -1,0 +1,3 @@
+https://github.com/heyman/leaflet-areaselect?tab=readme-ov-file
+
+if you want to use react app inside qt, try making a react app and build it, see how much size it gets

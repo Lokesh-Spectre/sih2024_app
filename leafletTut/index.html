@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Sandbox</title>
+    <meta charset="UTF-8" />
+    
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <script src="./areaSelect.js"></script>
+    <!-- <script src="./index.js" type="module"></script> -->
+    <link rel="stylesheet" href="areaSelect.css">
+    <style>
+        #map{
+            height: 400px;
+        }
+    </style>
+    <script>
+        const map = L.map('map').setView([51.505, -0.09], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var marker = L.marker([51.5, -0.09]).addTo(map);
+
+        var circle = L.circle([51.5, -0.07],{
+            color:"blue",
+            fillColor:"blue",
+            fillOpaciy:0.3,
+            radius: 500
+        }).addTo(map);
+        var polygon = L.polygon([
+            [51.509, -0.08],
+            [51.503, -0.06],
+            [51.51, -0.047]
+        ]).addTo(map);
+            // Add it to the map
+        var areaSelect = L.areaSelect({width:200, height:300, minWidth:40, minHeight:40, minHorizontalSpacing:40, minVerticalSpacing:100, keepAspectRatio:false});
+        areaSelect.addTo(map);
+        
+        // Read the bounding box
+        var bounds = areaSelect.getBounds();
+        
+        // Get a callback when the bounds change
+        areaSelect.on("change", function() {
+            console.log("Bounds:", this.getBounds());
+        });
+        
+        // Set the dimensions of the box
+        areaSelect.setDimensions({width: 500, height: 500})
+        var areaSelect = L.areaSelect({width:200, height:300, keepAspectRatio:true});
+        // And to remove it do:
+        //areaSelect.remove();
+    </script>
+  </body>
+</html>
